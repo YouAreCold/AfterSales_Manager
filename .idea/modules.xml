@@ -3,6 +3,13 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AfterSales_Manager.iml" filepath="$PROJECT_DIR$/AfterSales_Manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/afterSalesService-common/afterSalesService-common.iml" filepath="$PROJECT_DIR$/afterSalesService-common/afterSalesService-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/afterSalesService-manager/afterSalesService-manager.iml" filepath="$PROJECT_DIR$/afterSalesService-manager/afterSalesService-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/afterSalesService-manager/afterSalesService-manager-dao/afterSalesService-manager-dao.iml" filepath="$PROJECT_DIR$/afterSalesService-manager/afterSalesService-manager-dao/afterSalesService-manager-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/afterSalesService-manager/afterSalesService-manager-interface/afterSalesService-manager-interface.iml" filepath="$PROJECT_DIR$/afterSalesService-manager/afterSalesService-manager-interface/afterSalesService-manager-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/afterSalesService-manager/afterSalesService-manager-pojo/afterSalesService-manager-pojo.iml" filepath="$PROJECT_DIR$/afterSalesService-manager/afterSalesService-manager-pojo/afterSalesService-manager-pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/afterSalesService-manager/afterSalesService-manager-service/afterSalesService-manager-service.iml" filepath="$PROJECT_DIR$/afterSalesService-manager/afterSalesService-manager-service/afterSalesService-manager-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/afterSalesService-manager-web/afterSalesService-manager-web.iml" filepath="$PROJECT_DIR$/afterSalesService-manager-web/afterSalesService-manager-web.iml" />
     </modules>
   </component>
 </project>
