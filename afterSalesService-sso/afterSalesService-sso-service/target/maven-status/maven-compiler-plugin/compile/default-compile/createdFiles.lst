@@ -1,0 +1,9 @@
+com\afterSalesService\jedis\JedisClientPool.class
+com\afterSalesService\jedis\JedisClient.class
+com\afterSalesService\sso\service\impl\UUserServiceImpl.class
+com\afterSalesService\sso\service\impl\UUserRoleServiceImpl.class
+com\afterSalesService\sso\service\impl\URoleServiceImpl.class
+com\afterSalesService\jedis\JedisClientCluster.class
+com\afterSalesService\sso\service\impl\URolePermissionServiceImpl.class
+com\afterSalesService\task\TestTask.class
+com\afterSalesService\sso\service\impl\UPermissionServiceImpl.class

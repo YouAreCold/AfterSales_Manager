@@ -1,0 +1,7 @@
+com\afterSalesService\sso\service\IUUserService.class
+com\afterSalesService\sso\service\PermissionService.class
+com\afterSalesService\sso\service\RoleService.class
+com\afterSalesService\sso\service\IURolePermissionService.class
+com\afterSalesService\sso\service\IUUserRoleService.class
+com\afterSalesService\sso\service\IUPermissionService.class
+com\afterSalesService\sso\service\IURoleService.class

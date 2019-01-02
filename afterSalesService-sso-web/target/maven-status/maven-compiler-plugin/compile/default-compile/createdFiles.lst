@@ -1,0 +1,7 @@
+com\afterSalesService\sso\controller\PageController.class
+com\afterSalesService\sso\controller\UUserRoleController.class
+com\afterSalesService\sso\controller\URoleController.class
+com\afterSalesService\sso\controller\URolePermissionController.class
+com\afterSalesService\sso\controller\CommonController.class
+com\afterSalesService\sso\controller\UUserController.class
+com\afterSalesService\sso\controller\UPermissionController.class
