@@ -1,0 +1,175 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>afterSalesService-客户管理-编辑</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all">
+</head>
+<body>
+
+  <div class="layui-form" lay-filter="afterSalesService-form-order" id="afterSalesService-form-order" style="padding: 20px 30px 0 0;">
+    <div class="layui-form-item" style="display: none;">
+      <label class="layui-form-label">客户ID(内码)</label>
+	      <div class="layui-input-inline">
+	      <input type="text" name="organization_id" lay-verify="required" placeholder="隐藏不见" autocomplete="off" class="layui-input">
+	      <input type="text" name="fDeptId_hidden" id="fDeptId_hidden"  lay-verify="required" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">代码</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fNumber" lay-verify="required" placeholder="请输入代码" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">客户名称</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fName" lay-verify="required" placeholder="请输入客户名称" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">业务员名称</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fEmployeeName" lay-verify="required" placeholder="请输入业务员名称" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">地址</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fAddress" lay-verify="required" placeholder="请输入地址" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">电子邮件</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fEmail" lay-verify="required" placeholder="请输入电子邮箱" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">开户银行</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fBank" lay-verify="required" placeholder="请输入开户银行" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">银行账号</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fAccount" lay-verify="required" placeholder="请输入银行账号" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">分管部门</label>
+      <div class="layui-input-inline" id="deptInfo_select"></div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">电话</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fPhone" lay-verify="required" placeholder="请输入电话号码" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">区域</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fArea" lay-verify="required" placeholder="请输入区域" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">简称</label>
+      <div class="layui-input-inline" >
+        <input type="text" name="fShortName" lay-verify="required" placeholder="请输入简称(选填)" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+   	<div class="layui-form-item">
+      <label class="layui-form-label">性别</label>
+      <div class="layui-input-inline">
+       <select name="fSex">
+          <option value="1">男</option>
+          <option value="2">女</option>
+          <option value="0">未知</option>
+        </select>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">是否禁用</label>
+      <div class="layui-input-inline">
+       <select name="fDeleted">
+          <option value="0">禁用</option>
+          <option value="1">启用</option>
+        </select>
+      </div>
+    </div>
+    <div class="layui-form-item layui-hide">
+      <input type="button" lay-submit lay-filter="LAY-app-workorder-submit" id="LAY-app-workorder-submit" value="确认">
+    </div>
+  </div>
+
+  <script src="../../../static/layui/layui.js"></script>  
+  <!-- 全局配置 -->
+  <script>
+  layui.config({
+    base: '../../../static/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'form'], function(){
+  	deptInfoAdd(document.getElementById('fDeptId_hidden').value);
+    var $ = layui.$
+    ,form = layui.form;
+  })
+  </script>
+  <script>
+  	/* 部门下拉框 赋值  */
+  	function deptInfoAdd(id){
+  			// 加载中
+				var index = layer.load(2, {
+			  	shade: [0.1,'#fff'] //0.1透明度的白色背景
+				});
+				
+ 				//1.创建ajax对象
+        if(window.XMLHttpRequest)//如果有XMLHttpRequest，那就是非IE6浏览器。()里面加window的原因下面会有描述。
+        {
+            var oAjax = new XMLHttpRequest();//创建ajax对象
+        }
+        else//如果没有XMLHttpRequest，那就是IE6浏览器
+        {
+            var oAjax = new ActiveXObject("Microsoft.XMLHTTP");//IE6浏览器创建ajax对象
+        }
+        
+        //2.连接服务器
+        oAjax.open("GET","http://127.0.0.1:8081/dept/read/selectAll?id="+id,true);
+        //3.发送请求
+        oAjax.send();
+        
+        //4.接收返回 客户端和服务器端有交互的时候会调用onreadystatechange
+        oAjax.onreadystatechange=function()
+        {
+	        if(oAjax.readyState==4)//oAjax.readyState  //浏览器和服务器，进行到哪一步了。
+	        {
+            if(oAjax.status==200)//判断是否成功,如果是200，就代表成功
+            {
+            		var jsonData = JSON.parse(oAjax.responseText);
+            		var selectHtml = '<select name="fDeptId">';
+            		for(var i in jsonData.data)
+            		{
+										selectHtml+='<option value="'+jsonData.data[i].id+'">'+jsonData.data[i].fName+'('+jsonData.data[i].fManagerName+')</option>';
+								}
+            		selectHtml+='</select>';
+            		document.getElementById('deptInfo_select').innerHTML = selectHtml;
+            		console.log('下拉框赋值完成.....');
+            		layer.close(index);// 赋值完成，关闭Loading层
+            }
+            else
+            {
+                layer.msg('获取部门失败!（连接超时）',{time:1*1000});
+            }
+            layui.form.render();
+	        }
+        };
+ 		}
+  </script>
+</body>
+</html>

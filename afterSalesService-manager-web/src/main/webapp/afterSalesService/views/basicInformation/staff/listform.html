@@ -1,0 +1,155 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>afterSalesService-职位管理-编辑</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../../static/layui/css/modules/laydate/default/laydate.css" media="all" />
+</head>
+<body>
+
+  <div class="layui-form" lay-filter="afterSalesService-form-order" id="afterSalesService-form-order" style="padding: 20px 30px 0 0;">
+    <div class="layui-form-item" style="display: none;">
+      <label class="layui-form-label">职位ID</label>
+	      <div class="layui-input-inline">
+	      <input type="text" name="staff_id" lay-verify="required" placeholder="隐藏不见" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">代码</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fNumber" lay-verify="required" placeholder="请输入代码" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">职员名称</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fName" lay-verify="required" placeholder="请输入职员名称" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">职员类别</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fEmpGroup" lay-verify="required" placeholder="请输入职员类别" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">部门内码</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fDeptId" lay-verify="required" placeholder="请输入部门内码" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">性别</label>
+      <div class="layui-input-inline">
+       <select name="fSex">
+          <option value="1">男</option>
+          <option value="2">女</option>
+          <option value="0">未知</option>
+        </select>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">出生日期</label>
+      <div class="layui-input-inline">
+        <input type="text" class="layui-input" name="fBirthday" lay-verify="required" id="laydate_f_birthdaye" placeholder="请选择出生日期">
+      </div>
+    </div>
+     <div class="layui-form-item">
+      <label class="layui-form-label">手机号码</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fPhone" lay-verify="required" placeholder="请输入手机号码" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+     <div class="layui-form-item">
+      <label class="layui-form-label">身份证号码</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fId" lay-verify="required" placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+     <div class="layui-form-item">
+      <label class="layui-form-label">职务内码</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fDutyId" lay-verify="required" placeholder="请输入职务内码" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">是否禁用</label>
+      <div class="layui-input-inline">
+       <select name="fDeleted">
+          <option value="1">启用</option>
+          <option value="0">禁用</option>
+        </select>
+      </div>
+    </div>
+     <div class="layui-form-item">
+      <label class="layui-form-label">入职日期</label>
+      <div class="layui-input-inline">
+        <input type="text" class="layui-input" name="fHireDate" lay-verify="required" id="laydate_f_hire_date" placeholder="请选择入职日期">
+      </div>
+    </div>
+     <div class="layui-form-item">
+      <label class="layui-form-label">离职日期</label>
+      <div class="layui-input-inline">
+        <input type="text" class="layui-input" name="fLeaveDate" lay-verify="required" id="laydate_f_hire_date" placeholder="请选择离职日期">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">开户账号</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fBankAccount" lay-verify="required" placeholder="请输入物料类别" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">住址</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fAddress" lay-verify="required" placeholder="请输入物料类别" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">电子邮件</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fEmail" lay-verify="required" placeholder="请输入物料类别" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">备注</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fRemarks" lay-verify="required" placeholder="请输入物料类别" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item layui-hide">
+      <input type="button" lay-submit lay-filter="LAY-app-workorder-submit" id="LAY-app-workorder-submit" value="确认">
+    </div>
+  </div>
+
+  <script src="../../../static/layui/layui.js"></script>  
+  <script src="../../../static/layui/lay/modules/laydate.js"></script>
+  <script>
+  layui.config({
+    base: '../../../static/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'form'], function(){
+    var $ = layui.$
+    ,form = layui.form
+    ,laydate = layui.laydate;
+    
+    laydate.render({
+      elem: '#laydate_f_hire_date'
+    });
+    laydate.render({
+      elem: '#laydate_f_leave_date'
+    });
+    laydate.render({
+      elem: '#laydate_f_birthdaye'
+    });
+  })
+  </script>
+</body>
+</html>

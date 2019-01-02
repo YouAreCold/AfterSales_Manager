@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>afterSalesService 广告系统</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../../static/style/admin.css" media="all">
+  <script src="../../../static/js/jquery.min.js"></script>
+</head>
+<body>
+  <div class="layui-fluid">  
+    <div class="layui-card">
+      <div class="layui-form layui-card-header afterSalesService-card-header-auto">
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">广告标题</label>
+            <div class="layui-input-block">
+              <input type="text" name="ad_name" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">联系人</label>
+            <div class="layui-input-block">
+              <input type="text" name="link_man" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">电子邮箱</label>
+            <div class="layui-input-block">
+              <input type="text" name="link_email" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">广告类型</label>
+			      <div class="layui-input-inline">
+			       <select name="media_type">
+			       		<option value="999">全部</option>
+			          <option value="0">图片</option>
+			          <option value="1">flash</option>
+			          <option value="2">代码</option>
+			          <option value="3">文字</option>
+			        </select>
+			      </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">广告状态</label>
+			      <div class="layui-input-inline">
+			       <select name="ad_enabled">
+			       		<option value="999">全部</option>
+			          <option value="1">开启</option>
+			          <option value="0">关闭</option>
+			          <option value="-1">审核中</option>
+			        </select>
+			      </div>
+          </div>
+          <div class="layui-inline">
+            <button class="layui-btn afterSalesService-btn-order" lay-submit lay-filter="LAY-app-ad-search">
+              <i class="layui-icon layui-icon-search afterSalesService-button-btn"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="layui-card-body">
+      	 <div style="padding-bottom: 10px;">
+          <button class="layui-btn afterSalesService-btn-list" data-type="batchdel">删除</button>
+          <button class="layui-btn afterSalesService-btn-list" data-type="add">添加</button>
+        </div>
+        <table id="LAY-app-system-order" lay-filter="LAY-app-system-order"></table> 
+        <script type="text/html" id="progressTpl">
+          <div class="layui-progress afterSalesService-order-progress" lay-filter="progress-"+ {{ d.orderid }} +"">
+            <div class="layui-progress-bar layui-bg-blue" lay-percent= {{ d.progress }}></div>
+          </div>
+        </script>
+        <script type="text/html" id="buttonEnabled">
+          {{#  if(d.adEnabled == 1){ }}
+            <button class="layui-btn layui-btn-normal layui-btn-xs">开启</button>
+          {{#  } else if(d.adEnabled == 0){ }}
+            <button class="layui-btn layui-btn-primary layui-btn-xs">关闭</button>
+	        {{#  } else if(d.adEnabled == -1){ }}
+	        <button class="layui-btn layui-btn-warm layui-btn-xs">审核中</button>
+          {{#  } else{ }}
+            <button class="layui-btn layui-btn-xs">处理中</button>
+          {{#  } }}
+        </script>
+        <script type="text/html" id="buttonMediaType">
+          {{#  if(d.mediaType == 0){ }}
+            <button class="layui-btn layui-btn-normal layui-btn-xs">图片</button>
+          {{#  } else if(d.mediaType == 1){ }}
+            <button class="layui-btn layui-btn-warm layui-btn-xs">Flash</button>
+	        {{#  } else if(d.mediaType == 2){ }}
+	        <button class="layui-btn layui-btn-primary layui-btn-xs">代码</button>
+	        {{#  } else if(d.mediaType == 3){ }}
+	        <button class="layui-btn layui-btn-xs">文字</button>
+          {{#  } else{ }}
+            <button class="layui-btn layui-btn-warm layui-btn-xs">未知</button>
+          {{#  } }}
+        </script>
+        <script type="text/html" id="table-system-order">
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+          <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../../static/layui/layui.js"></script>  
+  <script>
+  layui.config({
+    base: '../../../static/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'ad', 'table'], function(){
+    var $ = layui.$
+    ,form = layui.form
+    ,table = layui.table;
+    
+    //监听搜索
+    form.on('submit(LAY-app-ad-search)', function(data){
+    	//var field = data.field;
+    	// 组装参数  格式为 ***：分隔参数     第一个参数 1.AND 2.OR   687：代表%    最后一个为相等运算符  1.LIKE  2.=  3.>=  4.<= 5.> 6.<
+    	var whereData = {
+    		"ad_name" : "1***687"+data.field.ad_name+"687***1",
+    		"link_man" : "1***687"+data.field.link_man+"687***1",
+    		"link_email" : "1***687"+data.field.link_email+"687***1",
+    		"ad_enabled" : "1***"+data.field.ad_enabled+"***2",
+    		"media_type" : "1***"+data.field.media_type+"***2"
+    	};
+      
+      //执行重载
+      table.reload('LAY-app-system-order', {
+        where: whereData
+      });
+    });
+    
+    var $ = layui.$, active = {
+      batchdel: function(e){
+        var checkStatus = table.checkStatus('LAY-app-system-order')
+        ,checkData = checkStatus.data; //得到选中的数据
+
+        if(checkData.length === 0){
+          return layer.msg('请选择数据');
+        }
+        var ids = "";
+      	$.each(checkData, function (n, value) {
+		       ids+=value.id+",";
+        });
+        layer.confirm('您选中了'+checkData.length+'条数据,确定删除吗？', function(index) {
+        ids = ids.substring(0, ids.length - 1);
+				var jsonData = { "id" : "-1" };
+				$.ajax({
+	       	url: "http://127.0.0.1:8081/ad/read/delete?dels="+ids,
+	        type: "POST",
+	        data: JSON.stringify(jsonData),
+	        dataType: 'json',
+	        contentType: "application/json;charset=UTF-8",
+	        success: function(data){
+	            if(data.code=="0"){
+	                table.reload('LAY-app-system-order');
+	                layer.msg("批量删除成功", {icon: 6});
+	            }else{
+	                layer.msg("批量删除失败", {icon: 5});
+	            }
+	        },
+	        error: function() {
+	        	layer.msg("接口调用异常", {icon: 5});
+	    		}
+	    	});
+      });
+    },
+      add: function(){
+        layer.open({
+          type: 2,
+          title: '添加广告',
+          content: 'listform.html',
+          maxmin: true,
+          area: ['550px', '550px'],
+          btn: ['确定', '取消'],
+          btn2: function(index, layero){
+        			layer.msg('取消操作', {
+				      time: 1000
+				    });
+        	},
+        	yes: function(e, i) {
+						var n = i.find("iframe").contents().find("#afterSalesService-form-order");
+						var jsonData = { 
+								"positionId" :  "0",
+								"mediaType" :  n.find('select[name="mediaType"]').val(),
+								"adName" :  n.find('input[name="adName"]').val(),
+								"adLink" :  n.find('input[name="adLink"]').val(),
+								"adCode" :  "0",
+								"linkMan" :  n.find('input[name="linkMan"]').val(),
+								"linkEmail" :  n.find('input[name="linkEmail"]').val(),
+								"linkPhone" :  n.find('input[name="linkPhone"]').val(),
+								"enabled" :  n.find('select[name="enabled"]').val()
+							};
+						$.ajax({
+               	url: "http://127.0.0.1:8081/ad",
+               	type: "POST",
+               	data: JSON.stringify(jsonData),
+               	dataType: 'json',
+               	contentType: "application/json;charset=UTF-8",
+               	success: function(data){
+                   if(data.code=="0"){
+												table.reload('LAY-app-system-order');
+                   			layer.close(e);
+                      	layer.msg("新增成功", {icon: 6});
+                   	}else{
+                       	layer.msg("新增失败", {icon: 5});
+                   	}
+               	},
+               	error: function() {
+               		layer.msg("接口调用异常", {icon: 5});
+            		}
+            });
+					}
+        }); 
+      }
+    }; 
+
+    $('.layui-btn.afterSalesService-btn-list').on('click', function(){
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
+
+  });
+  </script>
+</body>
+</html>

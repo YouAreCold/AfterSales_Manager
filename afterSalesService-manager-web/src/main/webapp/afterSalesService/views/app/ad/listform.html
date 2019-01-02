@@ -1,0 +1,91 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>afterSalesService-广告管理-编辑</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all">
+</head>
+<body>
+
+  <div class="layui-form" lay-filter="afterSalesService-form-order" id="afterSalesService-form-order" style="padding: 20px 30px 0 0;">
+    <div class="layui-form-item" style="display: none;">
+      <label class="layui-form-label">广告ID</label>
+	      <div class="layui-input-inline">
+	      <input type="text" name="ad_id" lay-verify="required" placeholder="隐藏不见" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">广告标题</label>
+      <div class="layui-input-inline">
+        <input type="text" name="adName" lay-verify="required" placeholder="请输入广告标题" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">广告外链</label>
+      <div class="layui-input-inline">
+        <input type="text" name="adLink" lay-verify="required" placeholder="请输入广告外链" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">联系人</label>
+      <div class="layui-input-inline">
+        <input type="text" name="linkMan" lay-verify="required" placeholder="请输入联系人" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">电子邮箱</label>
+      <div class="layui-input-inline">
+        <input type="text" name="linkEmail" lay-verify="required" placeholder="请输入电子邮箱" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">手机号码</label>
+      <div class="layui-input-inline">
+        <input type="text" name="linkPhone" lay-verify="required" placeholder="请输入手机号码" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+   	<div class="layui-form-item">
+      <label class="layui-form-label">广告类型</label>
+      <div class="layui-input-inline">
+       <select name="mediaType">
+          <option value="0">图片</option>
+          <option value="1">Flash</option>
+          <option value="2">代码</option>
+          <option value="3">文字</option>
+        </select>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">广告状态</label>
+      <div class="layui-input-inline">
+       <select name="adEnabled">
+          <option value="1">开启</option>
+          <option value="0">关闭</option>
+          <option value="-1">审核中</option>
+        </select>
+      </div>
+    </div>
+    <div class="layui-form-item layui-hide">
+      <input type="button" lay-submit lay-filter="LAY-app-workorder-submit" id="LAY-app-workorder-submit" value="确认">
+    </div>
+  </div>
+
+  <script src="../../../static/layui/layui.js"></script>  
+  <script>
+  layui.config({
+    base: '../../../static/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'form'], function(){
+    var $ = layui.$
+    ,form = layui.form;
+    
+  })
+  </script>
+</body>
+</html>

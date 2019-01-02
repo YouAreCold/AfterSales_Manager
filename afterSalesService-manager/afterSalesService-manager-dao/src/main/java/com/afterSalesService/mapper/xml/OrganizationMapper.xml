@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afterSalesService.mapper.OrganizationMapper">
+	 <resultMap id="Base_Result_Map" type="com.afterSalesService.pojo.organization.bo.OrganizationBo" >
+    <result column="f_address"     property="fAddress"       jdbcType="VARCHAR"       />
+    <result column="f_area"     property="fArea"       jdbcType="VARCHAR"       />
+    <result column="f_bank"     property="fBank"       jdbcType="VARCHAR"       />
+    <result column="f_deleted"     property="fDeleted"       jdbcType="VARCHAR"       />
+    <result column="f_dept_id"     property="fDeptId"       jdbcType="VARCHAR"       />
+    <result column="f_email"     property="fEmail"       jdbcType="VARCHAR"       />
+    <result column="f_employee_name"     property="fEmployeeName"       jdbcType="VARCHAR"       />
+    <result column="f_name"     property="fName"       jdbcType="VARCHAR"       />
+    <result column="f_number"     property="fNumber"       jdbcType="VARCHAR"       />
+    <result column="f_phone"     property="fPhone"       jdbcType="VARCHAR"       />
+    <result column="f_sex"     property="fSex"       jdbcType="VARCHAR"       />
+    <result column="f_short_name"     property="fShortName"       jdbcType="VARCHAR"       />
+    <result column="f_sort_id"     property="fSortId"       jdbcType="VARCHAR"       />
+    <result column="id"     property="id"       jdbcType="VARCHAR"       />
+    <result column="f_dept_name"     property="fDeptName"       jdbcType="VARCHAR"       />
+    <result column="f_status"     property="fStatus"       jdbcType="VARCHAR"       />
+     <result column="f_account"     property="fAccount"       jdbcType="VARCHAR"       />
+    <result column="created"     property="created"       jdbcType="VARCHAR"       />
+    <result column="updated"     property="updated"       jdbcType="VARCHAR"       />
+    </resultMap>
+	<!-- 查询客户表(关联部门表) -->
+	<select id="selectOrganizationListPage" resultMap="Base_Result_Map" parameterType="com.afterSalesService.pojo.organization.bo.OrganizationBo"  >
+      SELECT
+      O.created,O.updated,O.f_address,O.f_area,O.f_bank,O.f_deleted,O.f_status,O.f_dept_id,
+	  O.f_email,O.f_employee_name,O.f_name,O.f_number,O.f_phone,
+	  O.f_sex,O.f_short_name,O.f_sort_id,O.id,O.f_account,D.f_name as f_dept_name
+	  FROM
+	  organization as O 
+	  LEFT JOIN dept as D ON O.f_dept_id = D.id
+	  WHERE 1=1  
+	  	<if test="organizationBo.id != null">
+            AND O.id like concat(concat('%',#{organizationBo.id},'%'))
+        </if>
+        <if test="organizationBo.fNumber != null">
+            AND O.f_number like concat(concat('%',#{organizationBo.fNumber},'%'))
+        </if>
+        <if test="organizationBo.fName != null">
+            AND O.f_name like concat(concat('%',#{organizationBo.fName},'%'))
+        </if>
+        <if test="organizationBo.fEmployeeName != null">
+            AND O.f_employee_name like concat(concat('%',#{organizationBo.fEmployeeName},'%'))
+        </if>
+        <if test="organizationBo.fAddress != null">
+            AND O.f_address like concat(concat('%',#{organizationBo.fAddress},'%'))
+        </if>
+        <if test="organizationBo.fEmail != null">
+            AND O.f_email like concat(concat('%',#{organizationBo.fEmail},'%'))
+        </if>
+        <if test="organizationBo.fBank != null">
+            AND O.f_bank like concat(concat('%',#{organizationBo.fBank},'%'))
+        </if>
+        <if test="organizationBo.fAccount != null">
+            AND O.f_account like concat(concat('%',#{organizationBo.fAccount},'%'))
+        </if>
+        <if test="organizationBo.fSex != null">
+            AND O.f_sex like concat(concat('%',#{organizationBo.fSex},'%'))
+        </if>
+        <if test="organizationBo.fPhone != null">
+            AND O.f_phone like concat(concat('%',#{organizationBo.fPhone},'%'))
+        </if>
+        <if test="organizationBo.fArea != null">
+            AND O.f_area like concat(concat('%',#{organizationBo.fArea},'%'))
+        </if>
+        <if test="organizationBo.fShortName != null">
+            AND O.f_short_name like concat(concat('%',#{organizationBo.fShortName},'%'))
+        </if>
+         <if test="organizationBo.fDeptId != null">
+            AND O.f_dept_id like concat(concat('%',#{organizationBo.fDeptId},'%'))
+        </if>
+         <if test="organizationBo.fDeptName != null">
+            AND O.f_dept_name like concat(concat('%',#{organizationBo.fDeptName},'%'))    		
+		</if>
+         <if test="organizationBo.fDeleted != null">
+            AND O.f_deleted = #{organizationBo.fDeleted}
+        </if>
+         <if test="organizationBo.fSortId != null">
+            AND O.f_sort_id like concat(concat('%',#{organizationBo.fSortId},'%'))
+        </if>
+        order by O.f_sort_id DESC
+    </select>
+	<!-- 查询客户表(关联部门表)  提醒模块 -->
+	<select id="selectOrganizationListPageAndReminder" resultMap="Base_Result_Map" parameterType="com.afterSalesService.pojo.organization.bo.OrganizationBo"  >
+      SELECT
+      O.created,O.updated,O.f_address,O.f_area,O.f_bank,O.f_deleted,O.f_dept_id,
+	  O.f_email,O.f_employee_name,O.f_name,O.f_number,O.f_phone,O.f_status,
+	  O.f_sex,O.f_short_name,O.f_sort_id,O.id,O.f_account,D.f_name as f_dept_name
+	  FROM
+	  organization as O 
+	  LEFT JOIN dept as D ON O.f_dept_id = D.id
+	  WHERE O.f_status = 0 
+	       AND O.created &lt;= date_sub(curdate(), interval 30 day) 
+        <if test="organizationBo.fNumber != null">
+            AND O.f_number like concat(concat('%',#{organizationBo.fNumber},'%'))
+        </if>
+        <if test="organizationBo.fName != null">
+            AND O.f_name like concat(concat('%',#{organizationBo.fName},'%'))
+        </if>
+        <if test="organizationBo.fEmployeeName != null">
+            AND O.f_employee_name like concat(concat('%',#{organizationBo.fEmployeeName},'%'))
+        </if>
+        <if test="organizationBo.fAddress != null">
+            AND O.f_address like concat(concat('%',#{organizationBo.fAddress},'%'))
+        </if>
+        <if test="organizationBo.fEmail != null">
+            AND O.f_email like concat(concat('%',#{organizationBo.fEmail},'%'))
+        </if>
+        <if test="organizationBo.fBank != null">
+            AND O.f_bank like concat(concat('%',#{organizationBo.fBank},'%'))
+        </if>
+        <if test="organizationBo.fAccount != null">
+            AND O.f_account like concat(concat('%',#{organizationBo.fAccount},'%'))
+        </if>
+        <if test="organizationBo.fSex != null">
+            AND O.f_sex like concat(concat('%',#{organizationBo.fSex},'%'))
+        </if>
+        <if test="organizationBo.fPhone != null">
+            AND O.f_phone like concat(concat('%',#{organizationBo.fPhone},'%'))
+        </if>
+        <if test="organizationBo.fArea != null">
+            AND O.f_area like concat(concat('%',#{organizationBo.fArea},'%'))
+        </if>
+        <if test="organizationBo.fShortName != null">
+            AND O.f_short_name like concat(concat('%',#{organizationBo.fShortName},'%'))
+        </if>
+         <if test="organizationBo.fDeptId != null">
+            AND O.f_dept_id like concat(concat('%',#{organizationBo.fDeptId},'%'))
+        </if>
+         <if test="organizationBo.fDeptName != null">
+            AND O.f_dept_name like concat(concat('%',#{organizationBo.fDeptName},'%'))    		
+		</if>
+         <if test="organizationBo.fDeleted != null">
+            AND O.f_deleted = #{organizationBo.fDeleted}
+        </if>
+         <if test="organizationBo.fSortId != null">
+            AND O.f_sort_id like concat(concat('%',#{organizationBo.fSortId},'%'))
+        </if>
+        order by O.f_sort_id DESC
+    </select>
+  
+</mapper>

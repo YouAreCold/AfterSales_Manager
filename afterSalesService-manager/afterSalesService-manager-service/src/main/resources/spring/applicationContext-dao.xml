@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+	<!-- 配置数据库连接池 -->
+	<!-- 加载配置文件 -->
+	<context:property-placeholder location="classpath:properties/db.properties" ignore-unresolvable="true"/>
+	
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		 init-method="init" destroy-method="close">
+		<property name="url" value="${jdbc1.url}" />
+		<property name="username" value="${jdbc1.username}" />
+		<property name="password" value="${jdbc1.password}" />
+		<property name="driverClassName" value="${jdbc1.driver}" />
+		<property name="maxActive" value="30" />
+		<property name="minIdle" value="5" />
+	</bean>
+	<!-- base dataSource -->
+	<!-- <bean name="baseDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+		<property name="initialSize" value="5" />
+		<property name="maxActive" value="100" />
+		<property name="minIdle" value="10" />
+		<property name="maxWait" value="60000" />
+		<property name="validationQuery" value="SELECT 'x'" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="true" />
+		<property name="testWhileIdle" value="true" />
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="1800" />
+		<property name="logAbandoned" value="true" />
+		<property name="filters" value="mergeStat" />
+	</bean> -->
+	<!-- 配置多个数据库 连接池    博客数据库-->
+	<!-- <bean id="dataSource_afterSalesService" class="com.alibaba.druid.pool.DruidDataSource"
+		 init-method="init" destroy-method="close">
+		<property name="url" value="${jdbc1.url}" />
+		<property name="username" value="${jdbc1.username}" />
+		<property name="password" value="${jdbc1.password}" />
+		<property name="driverClassName" value="${jdbc1.driver}" />
+		<property name="maxActive" value="10" />
+		<property name="minIdle" value="5" />
+	</bean> -->
+	
+	<!-- 数据库连接池 -->
+	<!-- <bean id="dataSource_myuser" class="com.alibaba.druid.pool.DruidDataSource"
+		 init-method="init" destroy-method="close">
+		<property name="url" value="${jdbc2.url}" />
+		<property name="username" value="${jdbc2.username}" />
+		<property name="password" value="${jdbc2.password}" />
+		<property name="driverClassName" value="${jdbc2.driver}" />
+		<property name="maxActive" value="10" />
+		<property name="minIdle" value="5" />
+	</bean> -->
+	
+	<!--主从库选择 -->
+	<!-- <bean id="dynamicDataSource" class="com.afterSalesService.common.multiplesources.DynamicDataSource">
+		<property name="dataSource_afterSalesService" ref="dataSource_afterSalesService" />
+		<property name="dataSource_myuser">
+			<list>
+				<ref bean="dataSource_myuser" />
+			</list>
+		</property>
+	</bean> -->
+	
+	<!-- Spring整合Mybatis，更多查看文档：http://mp.baomidou.com -->
+	<bean id="sqlSessionFactory"
+		class="com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean">
+		
+		<!-- <property name="dataSource" ref="dataSource" /> -->
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml" />
+		<!-- 自动扫描mapping.xml文件 -->
+		<property name="typeAliasesPackage" value="com.afterSalesService.pojo*" />
+		<property name="mapperLocations" value="classpath:com/afterSalesService/mapper/xml/*.xml" /> 
+		<property name="globalConfig">
+			<bean class="com.baomidou.mybatisplus.entity.GlobalConfiguration">
+				<property name="dbColumnUnderline" value="true" />
+				<property name="sqlInjector">
+					<bean class="com.baomidou.mybatisplus.mapper.AutoSqlInjector" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.afterSalesService.mapper" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean>
+</beans>

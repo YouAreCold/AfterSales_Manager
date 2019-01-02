@@ -1,0 +1,18 @@
+Root WebApplicationContext: initialization started
+Refreshing Root WebApplicationContext: startup date [Thu Feb 08 17:47:52 GMT+08:00 2018]; root of context hierarchy
+Loading XML bean definitions from file [F:\开发\深圳健康\eclipseWork\afterSalesService-manager\afterSalesService-manager-service\target\classes\spring\applicationContext-dao.xml]
+Loading XML bean definitions from file [F:\开发\深圳健康\eclipseWork\afterSalesService-manager\afterSalesService-manager-service\target\classes\spring\applicationContext-service.xml]
+using logger: com.alibaba.dubbo.common.logger.log4j.Log4jLoggerAdapter
+Loading XML bean definitions from file [F:\开发\深圳健康\eclipseWork\afterSalesService-manager\afterSalesService-manager-service\target\classes\spring\applicationContext-trans.xml]
+Loading properties file from class path resource [properties/db.properties]
+JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+Root WebApplicationContext: initialization completed in 2220 ms
+Root WebApplicationContext: initialization started
+Refreshing Root WebApplicationContext: startup date [Thu Feb 08 17:56:46 GMT+08:00 2018]; root of context hierarchy
+Loading XML bean definitions from file [F:\开发\深圳健康\eclipseWork\afterSalesService-manager\afterSalesService-manager-service\target\classes\spring\applicationContext-dao.xml]
+Loading XML bean definitions from file [F:\开发\深圳健康\eclipseWork\afterSalesService-manager\afterSalesService-manager-service\target\classes\spring\applicationContext-service.xml]
+using logger: com.alibaba.dubbo.common.logger.log4j.Log4jLoggerAdapter
+Loading XML bean definitions from file [F:\开发\深圳健康\eclipseWork\afterSalesService-manager\afterSalesService-manager-service\target\classes\spring\applicationContext-trans.xml]
+Loading properties file from class path resource [properties/db.properties]
+JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
+Root WebApplicationContext: initialization completed in 1621 ms

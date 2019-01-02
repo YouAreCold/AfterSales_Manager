@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afterSalesService.mapper.MaterialsMapper">
+
+ 	<resultMap id="Base_Result_Map" type="com.afterSalesService.pojo.materials.bo.MaterialsBo" >
+	    <result column="f_number"     property="fNumber"       jdbcType="VARCHAR"       />
+	    <result column="f_brand"     property="fBrand"       jdbcType="VARCHAR"       />
+	    <result column="f_name"     property="fName"       jdbcType="VARCHAR"       />
+	    <result column="f_model"     property="fModel"       jdbcType="VARCHAR"       />
+	    <result column="f_alias"     property="fAlias"       jdbcType="VARCHAR"       />
+	    <result column="f_chart_number"     property="fChartNumber"       jdbcType="VARCHAR"       />
+	    <result column="f_help_code"     property="fHelpCode"       jdbcType="VARCHAR"       />
+	    <result column="f_good_spec"     property="fGoodSpec"       jdbcType="VARCHAR"       />
+	    <result column="f_equipment_num"     property="fEquipmentNum"       jdbcType="VARCHAR"       />
+	    <result column="f_sale_price"     property="fSalePrice"       jdbcType="VARCHAR"       />
+	    <result column="f_unit_id"     property="fUnitId"       jdbcType="VARCHAR"       />
+	    <result column="f_type"     property="fType"       jdbcType="VARCHAR"       />
+	    <result column="f_sort_id"     property="fSortId"       jdbcType="VARCHAR"       />
+	    <result column="id"     property="id"       jdbcType="VARCHAR"       />
+	   	<result column="created"     property="created"       jdbcType="VARCHAR"       />
+	    <result column="updated"     property="updated"       jdbcType="VARCHAR"       />
+    </resultMap>
+	<!-- 查询物料表(关联单位与物料分类表) -->
+	<select id="selectMaterialsListPage" resultMap="Base_Result_Map" parameterType="com.afterSalesService.pojo.materials.bo.MaterialsBo"  >
+    	SELECT M.*,
+			MT.materials_type_name AS materialsTypeName,
+			U.f_unit_name AS unitName 
+		FROM materials AS M 
+		LEFT JOIN materials_type AS MT ON M.f_type = MT.id
+		LEFT JOIN unit AS U ON M.f_unit_id = U.id
+      	WHERE 1=1 
+      	<if test="materialsBo.materialsTypeID != null">
+            AND M.f_type = #{materialsBo.materialsTypeID}
+        </if>
+        <if test="materialsBo.fNumber != null">
+            AND M.f_number like concat(concat('%',#{materialsBo.fNumber},'%'))
+        </if>
+        order by M.f_sort_id DESC
+    </select>
+</mapper>

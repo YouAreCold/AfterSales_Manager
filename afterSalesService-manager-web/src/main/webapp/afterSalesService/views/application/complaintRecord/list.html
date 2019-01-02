@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>afterSalesService 投诉记录管理</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../../static/style/admin.css" media="all">
+  <script src="../../../static/js/jquery.min.js"></script>
+</head>
+<body>
+  <div class="layui-fluid">  
+    <div class="layui-card">
+      <div class="layui-form layui-card-header afterSalesService-card-header-auto">
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">代码</label>
+            <div class="layui-input-block">
+              <input type="text" name="f_number" placeholder="代码关键字" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">老师名称</label>
+            <div class="layui-input-block">
+              <input type="text" name="f_teacher" placeholder="老师名称关键字" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">业务员</label>
+            <div class="layui-input-block">
+              <input type="text" name="f_clerk_name" placeholder="业务员关键字" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">客户名称</label>
+            <div class="layui-input-block">
+              <input type="text" name="f_client_name" placeholder="客户名称关键字" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <button class="layui-btn afterSalesService-btn-order" lay-submit lay-filter="LAY-search">
+              <i class="layui-icon layui-icon-search afterSalesService-button-btn"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="layui-card-body">
+      	 <div style="padding-bottom: 10px;">
+          <button class="layui-btn afterSalesService-btn-list" data-type="add">添加</button>
+          <button class="layui-btn layui-btn-warm" data-type="export" id="ExcelDownload">
+  				  <a href="../../../static/ImportExcel/complaintRecord/complaintRecord.xls" download="投诉建议导入模版(Excel)" style="color: white;">导入模版(DownLoad)</a>
+		      </button>
+		      <button type="button" class="layui-btn layui-btn-danger" id="import"><i class="layui-icon"></i>导入Excel</button>
+        </div>
+        <table id="LAY-app-system-order" lay-filter="LAY-app-system-order"></table> 
+        <script type="text/html" id="progressTpl">
+          <div class="layui-progress afterSalesService-order-progress" lay-filter="progress-"+ {{ d.orderid }} +"">
+            <div class="layui-progress-bar layui-bg-blue" lay-percent= {{ d.progress }}></div>
+          </div>
+        </script>
+        
+        
+        <script type="text/html" id="table-system-order">
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+          <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../../static/layui/layui.js"></script>  
+  <script>
+  layui.config({
+    base: '../../../static/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'complaintRecord', 'table'], function(){
+    var $ = layui.$
+    ,form = layui.form
+    ,table = layui.table;
+    var typeID = getParam('complaintType');
+	  if(typeID!=null && typeID!="")
+	  {
+	  	TypeList(typeID);
+	  }
+    //监听搜索
+    form.on('submit(LAY-search)', function(data){
+    	//var field = data.field;
+    	// 组装参数  格式为 ***：分隔参数     第一个参数 1.AND 2.OR   687：代表%    最后一个为相等运算符  1.LIKE  2.=  3.>=  4.<= 5.> 6.<
+    	var whereData = {
+    		"f_number" : "1***687"+data.field.f_number+"687***1",
+    		"f_teacher" : "1***687"+data.field.f_teacher+"687***1",
+    		"f_clerk_name" : "1***687"+data.field.f_clerk_name+"687***1",
+    		"f_client_name" : "1***687"+data.field.f_client_name+"687***1"
+    	};
+      
+      //执行重载
+      table.reload('LAY-app-system-order', {
+        where: whereData
+      });
+    });
+    
+    var $ = layui.$, active = {
+      batchdel: function(e){
+        var checkStatus = table.checkStatus('LAY-app-system-order')
+        ,checkData = checkStatus.data; //得到选中的数据
+
+        if(checkData.length === 0){
+          return layer.msg('请选择数据');
+        }
+        var ids = "";
+      	$.each(checkData, function (n, value) {
+		       ids+=value.id+",";
+        });
+        layer.confirm('您选中了'+checkData.length+'条数据,确定删除吗？', function(index) {
+        ids = ids.substring(0, ids.length - 1);
+				var jsonData = { "id" : "-1" };
+				$.ajax({
+	       	url: "http://127.0.0.1:8081/complaint/read/delete?dels="+ids,
+	        type: "POST",
+	        data: JSON.stringify(jsonData),
+	        dataType: 'json',
+	        contentType: "application/json;charset=UTF-8",
+	        success: function(data){
+	            if(data.code=="0"){
+	                table.reload('LAY-app-system-order');
+	                layer.msg("批量删除成功", {icon: 6});
+	            }else{
+	                layer.msg("批量删除失败", {icon: 5});
+	            }
+	        },
+	        error: function() {
+	        	layer.msg("接口调用异常", {icon: 5});
+	    		}
+	    	});
+      });
+    },
+      add: function(){
+        layer.open({
+          type: 2,
+          title: '添加投诉记录',
+          content: 'listform.html',
+          maxmin: true,
+          area: ['550px', '550px'],
+          btn: ['确定', '取消'],
+          btn2: function(index, layero){
+        			layer.msg('取消操作', {
+				      time: 1000
+				    });
+        	},
+        	yes: function(e, i) {
+						var n = i.find("iframe").contents().find("#afterSalesService-form-order");
+						var jsonData = { 
+								"fCancel" :  n.find('input[name="fCancel"]').val(),
+								"fStatus" :  n.find('input[name="fStatus"]').val(),
+								"fSel" :  n.find('input[name="fSel"]').val(),
+								"fNumber" :  n.find('input[name="fNumber"]').val(),
+								"fTeacherNumber" :  n.find('input[name="fTeacherNumber"]').val(),
+								"fTeacherItemId" :  n.find('input[name="fTeacherItemId"]').val(),
+								"fTeacher" :  n.find('input[name="fTeacher"]').val(),
+								"fTeacherPhone" :  n.find('input[name="fTeacherPhone"]').val(),
+								"fClientName" :  n.find('input[name="fClientName"]').val(),
+								"fClientPhone" :  n.find('input[name="fClientPhone"]').val(),
+								"fClientAddress" :  n.find('input[name="fClientAddress"]').val(),
+								"fWords" :  n.find('input[name="fWords"]').val(),
+								"fClerkName" :  n.find('input[name="fClerkName"]').val(),
+								"fReply" :  n.find('input[name="fReply"]').val(),
+								"fCheck" :  n.find('input[name="fCheck"]').val(),
+								"fCheckDate" :  n.find('input[name="fCheckDate"]').val(),
+								"created" : getNowFormatDate(),
+								"updated" : getNowFormatDate()
+							};
+						$.ajax({
+               	url: "http://127.0.0.1:8081/complaint",
+               	type: "POST",
+               	data: JSON.stringify(jsonData),
+               	dataType: 'json',
+               	contentType: "application/json;charset=UTF-8",
+               	success: function(data){
+                   if(data.code=="0"){
+												table.reload('LAY-app-system-order');
+                   			layer.close(e);
+                      	layer.msg("新增成功", {icon: 6});
+                   	}else{
+                       	layer.msg("新增失败", {icon: 5});
+                   	}
+               	},
+               	error: function() {
+               		layer.msg("接口调用异常", {icon: 5});
+            		}
+            });
+					}
+        }); 
+      }
+    }; 
+
+    $('.layui-btn.afterSalesService-btn-list').on('click', function(){
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
+
+  });
+  // 根据投诉记录类型展示
+  function TypeList(typeID)
+  {
+  	// 组装参数  格式为 ***：分隔参数     第一个参数 1.AND 2.OR   687：代表%    最后一个为相等运算符  1.LIKE  2.=  3.>=  4.<= 5.> 6.<
+    	var whereData = {
+    		"complaintTypeID" : typeID
+    	};
+      
+      //执行重载
+      layui.table.reload('LAY-app-system-order', {
+        where: whereData
+      });
+  }
+  /* 取参数  */
+  function getParam(paramName) { 
+    paramValue = "", isFound = !1; 
+    if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) { 
+        arrSource = unescape(this.location.search).substring(1, this.location.search.length).split("&"), i = 0; 
+        while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++ 
+    } 
+    return paramValue == "" && (paramValue = null), paramValue 
+	} 
+  </script>
+  <!--获取当前时间-->
+  <script src="../../../static/js/newDate.js"></script>
+</body>
+</html>

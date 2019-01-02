@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afterSalesService.mapper.WsummaryMapper">
+
+	<resultMap id="Base_Result_Map" type="com.afterSalesService.pojo.wsummary.bo.WsummaryBo" >
+	    <result column="f_wsummary_pid"     property="fWsummaryPid"       jdbcType="VARCHAR"       />
+	    <result column="f_wsummary_date"     property="fWsummaryDate"       jdbcType="VARCHAR"       />
+	    <result column="f_wsummary_owner"     property="fWsummaryOwner"       jdbcType="VARCHAR"       />
+	    <result column="f_wsummary_level"     property="fWsummaryLevel"       jdbcType="VARCHAR"       />
+	    <result column="f_wsummary_content"     property="fWsummaryContent"       jdbcType="VARCHAR"       />
+	    <result column="f_wsummary_opinion"     property="fWsummaryOpinion"       jdbcType="VARCHAR"       />
+	    <result column="f_wsummary_checkdate"     property="fWsummaryCheckdate"       jdbcType="VARCHAR"       />
+	    <result column="f_wsummary_checker"     property="fWsummaryChecker"       jdbcType="VARCHAR"       />
+	    <result column="f_sort_id"     property="fSortId"       jdbcType="VARCHAR"       />
+	    <result column="id"     property="id"       jdbcType="VARCHAR"       />
+	   	<result column="created"     property="created"       jdbcType="VARCHAR"       />
+	    <result column="updated"     property="updated"       jdbcType="VARCHAR"       />
+    </resultMap>
+	<!-- 查询工作总结表(关联工作计划表) -->
+	<select id="selectWsummaryListPage" resultMap="Base_Result_Map" parameterType="com.afterSalesService.pojo.wsummary.bo.WsummaryBo"  >
+    	SELECT W.* FROM wsummary AS W 
+		INNER JOIN plant AS P ON W.f_wsummary_pid = P.id 
+      	WHERE 1=1 
+      	<if test="wsummaryBo.fWsummaryDate != null">
+            AND W.f_wsummary_date like concat(concat('%',#{wsummaryBo.fWsummaryDate},'%'))
+        </if>
+        <if test="wsummaryBo.fWsummaryOwner != null">
+            AND W.f_wsummary_owner like concat(concat('%',#{wsummaryBo.fWsummaryOwner},'%'))
+        </if>
+        <if test="wsummaryBo.fWsummaryLevel != null">
+            AND W.f_wsummary_level like concat(concat('%',#{wsummaryBo.fWsummaryLevel},'%'))
+        </if>
+        <if test="wsummaryBo.fWsummaryContent != null">
+            AND W.f_wsummary_content like concat(concat('%',#{wsummaryBo.fWsummaryContent},'%'))
+        </if>
+        <if test="wsummaryBo.fWsummaryOpinion != null">
+            AND W.f_wsummary_opinion like concat(concat('%',#{wsummaryBo.fWsummaryOpinion},'%'))
+        </if>
+        <if test="wsummaryBo.fWsummaryCheckdate != null">
+            AND W.f_wsummary_checkdate like concat(concat('%',#{wsummaryBo.fWsummaryCheckdate},'%'))
+        </if>
+        order by W.f_sort_id DESC
+    </select>
+</mapper>

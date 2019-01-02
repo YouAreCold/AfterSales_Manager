@@ -1,0 +1,73 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>afterSalesService-部门管理-编辑</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all">
+</head>
+<body>
+
+  <div class="layui-form" lay-filter="afterSalesService-form-order" id="afterSalesService-form-order" style="padding: 20px 30px 0 0;">
+    <div class="layui-form-item" style="display: none;">
+      <label class="layui-form-label">部门ID(内码)</label>
+	      <div class="layui-input-inline">
+	      <input type="text" name="dept_id" lay-verify="required" placeholder="隐藏不见" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">代码</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fNumber" lay-verify="required" placeholder="请输入代码" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">部门名称</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fName" lay-verify="required" placeholder="请输入部门名称" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">主管</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fManagerName" lay-verify="required" placeholder="请输入主管" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">备注</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fRemarks" lay-verify="required" placeholder="请输入备注" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+   	<div class="layui-form-item">
+      <label class="layui-form-label">是否禁用</label>
+      <div class="layui-input-inline">
+       <select name="fDeleted">
+          <option value="1">启用</option>
+          <option value="0">禁用</option>
+        </select>
+      </div>
+    </div>
+    <div class="layui-form-item layui-hide">
+      <input type="button" lay-submit lay-filter="LAY-app-workorder-submit" id="LAY-app-workorder-submit" value="确认">
+    </div>
+  </div>
+
+  <script src="../../../static/layui/layui.js"></script>  
+  <script>
+  layui.config({
+    base: '../../../static/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'form'], function(){
+    var $ = layui.$
+    ,form = layui.form;
+    
+  })
+  </script>
+</body>
+</html>

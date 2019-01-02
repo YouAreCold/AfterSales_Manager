@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<!-- 父工程 -->
+	<parent>
+		<groupId>com.afterSalesService</groupId>
+		<artifactId>afterSalesService-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>afterSalesService-manager</artifactId>
+	<packaging>pom</packaging>
+
+	<!-- 添加对 afterSalesService-common 的依赖 -->
+	<dependencies>
+		<dependency>
+			<groupId>com.afterSalesService</groupId>
+			<artifactId>afterSalesService-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+	<!-- 子工程 -->
+	<modules>
+		<module>afterSalesService-manager-pojo</module>
+		<module>afterSalesService-manager-dao</module>
+		<module>afterSalesService-manager-interface</module>
+		<module>afterSalesService-manager-service</module>
+	</modules>
+	<build>
+		<plugins>
+			<!--配置 tomcat 插件 -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<configuration>
+					<port>8080</port>
+					<path>/</path>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

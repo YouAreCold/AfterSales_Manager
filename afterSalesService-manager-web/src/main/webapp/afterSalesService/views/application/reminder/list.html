@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>afterSalesService 提醒系统</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all">
+		<link rel="stylesheet" href="../../../static/style/admin.css" media="all">
+		<script src="../../../static/js/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<div class="layui-fluid">
+			<div class="layui-card">
+				<div class="layui-form layui-card-header afterSalesService-card-header-auto">
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">代码</label>
+							<div class="layui-input-block">
+								<input type="text" name="f_number" placeholder="代码关键字" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">客户名称</label>
+							<div class="layui-input-block">
+								<input type="text" name="f_name" placeholder="专营业务员名称关键字" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">电子邮箱</label>
+							<div class="layui-input-block">
+								<input type="text" name="f_email" placeholder="电子邮箱关键字" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">是否禁用</label>
+							<div class="layui-input-inline">
+								<select name="f_deleted">
+									<option value="999">全部</option>
+									<option value="0">禁用</option>
+									<option value="1">启用</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline">
+							<button class="layui-btn afterSalesService-btn-order" lay-submit lay-filter="LAY-search">
+              <i class="layui-icon layui-icon-search afterSalesService-button-btn"></i>
+            </button>
+						</div>
+					</div>
+				</div>
+				<div class="layui-card-body">
+					<table id="LAY-app-system-order" lay-filter="LAY-app-system-order"></table>
+					<script type="text/html" id="progressTpl">
+						<div class="layui-progress afterSalesService-order-progress" lay-filter="progress-" + {{ d.orderid }} + "">
+							<div class="layui-progress-bar layui-bg-blue" lay-percent={ { d.progress }}></div>
+						</div>
+					</script>
+
+					<script type="text/html" id="buttonFDeleted">
+						{{# if(d.fDeleted == 0){ }}
+						<button class="layui-btn layui-btn-normal layui-btn-xs">禁用</button> {{# } else if(d.fDeleted == 1){ }}
+						<button class="layui-btn layui-btn-warm layui-btn-xs">启用</button> {{# } else{ }}
+						<button class="layui-btn layui-btn-warm layui-btn-xs">未知</button> {{# } }}
+					</script>
+					<script type="text/html" id="buttonSexType">
+						{{# if(d.fSex == 1){ }}
+						<button class="layui-btn layui-btn-normal layui-btn-xs">男</button> {{# } else if(d.fSex == 2){ }}
+						<button class="layui-btn layui-btn-warm layui-btn-xs">女</button> {{# } else if(d.fSex == 0){ }}
+						<button class="layui-btn layui-btn-warm layui-btn-xs">未知</button> {{# } else{ }}
+						<button class="layui-btn layui-btn-warm layui-btn-xs">异常</button> {{# } }}
+					</script>
+					<script type="text/html" id="table-system-order">
+						<a class="layui-btn layui-btn-xs" lay-event="reservationBtn"><i class="layui-icon"></i>预约</a>
+						<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="ignoreBtn"><i class="layui-icon"></i>忽略</a>
+						<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="putOffBtn"><i class="layui-icon"></i>推迟</a>
+					</script>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../../static/layui/layui.js"></script>
+		<script>
+			layui.config({
+				base: '../../../static/' //静态资源所在路径
+			}).extend({
+				index: 'lib/index' //主入口模块
+			}).use(['index', 'reminder', 'table'], function() {
+				var $ = layui.$,
+					form = layui.form,
+					table = layui.table;
+
+				//监听搜索
+				form.on('submit(LAY-search)', function(data) {
+					//var field = data.field;
+					// 组装参数  格式为 ***：分隔参数     第一个参数 1.AND 2.OR   687：代表%    最后一个为相等运算符  1.LIKE  2.=  3.>=  4.<= 5.> 6.<
+					var whereData;
+					if(data.field.f_deleted == '999') {
+						whereData = {
+							"fNumber": data.field.f_number,
+							"fName": data.field.f_name,
+							"fEmail": data.field.f_email
+						};
+					} else {
+						whereData = {
+							"fNumber": data.field.f_number,
+							"fName": data.field.f_name,
+							"fEmail": data.field.f_email,
+							"fDeleted": data.field.f_deleted
+						};
+					}
+
+					//执行重载
+					table.reload('LAY-app-system-order', {
+						where: eval('(' + JSON.stringify(whereData) + ')')
+					});
+				});
+				
+				$('.layui-btn.afterSalesService-btn-list').on('click', function() {
+					var type = $(this).data('type');
+					active[type] ? active[type].call(this) : '';
+				});
+
+			});
+		</script>
+		<!--获取当前时间-->
+		<script src="../../../static/js/newDate.js"></script>
+	</body>
+
+</html>

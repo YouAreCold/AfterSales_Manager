@@ -1,0 +1,16 @@
+com\afterSalesService\service\IMaterialsService.class
+com\afterSalesService\service\IReservationService.class
+com\afterSalesService\service\IImportExcelService.class
+com\afterSalesService\service\ISellService.class
+com\afterSalesService\service\IWsummaryService.class
+com\afterSalesService\service\IUnitService.class
+com\afterSalesService\service\IOrganizationService.class
+com\afterSalesService\service\IReservationLogService.class
+com\afterSalesService\service\IPictureService.class
+com\afterSalesService\service\IComplaintService.class
+com\afterSalesService\service\IDeptService.class
+com\afterSalesService\service\IStaffService.class
+com\afterSalesService\service\IPostService.class
+com\afterSalesService\service\IPlantService.class
+com\afterSalesService\service\ISysMenuService.class
+com\afterSalesService\service\IMaterialsTypeService.class

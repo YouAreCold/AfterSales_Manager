@@ -1,0 +1,130 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>afterSalesService-投诉记录管理-编辑</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../static/layui/css/layui.css" media="all">
+</head>
+<body>
+
+  <div class="layui-form" lay-filter="afterSalesService-form-order" id="afterSalesService-form-order" style="padding: 20px 30px 0 0;">
+    <div class="layui-form-item" style="display: none;">
+      <label class="layui-form-label">投诉记录ID(内码)</label>
+	      <div class="layui-input-inline">
+	      <input type="text" name="complaintRecord_id" lay-verify="required" placeholder="隐藏不见" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">代码</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fNumber" lay-verify="required" placeholder="请输入代码" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">作废</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fCancel" lay-verify="required" placeholder="请输入品牌" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">审核标识</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fStatus" lay-verify="required" placeholder="请输入投诉记录名称" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">选择</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fSel" lay-verify="required" placeholder="请输入型号" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">老师代码</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fTeacherNumber" lay-verify="required" placeholder="请输入规格" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+     <div class="layui-form-item">
+      <label class="layui-form-label">老师内码</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fTeacherItemId" lay-verify="required" placeholder="请输入颜色" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+     <div class="layui-form-item">
+      <label class="layui-form-label">老师名称</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fTeacher" lay-verify="required" placeholder="请输入商品条码" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+     <div class="layui-form-item">
+      <label class="layui-form-label">客户名称</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fClientName" lay-verify="required" placeholder="请输入产地" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+     <div class="layui-form-item">
+      <label class="layui-form-label">客户电话</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fClientPhone" lay-verify="required" placeholder="请输入销售单价" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+     <div class="layui-form-item">
+      <label class="layui-form-label">客户地址</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fClientAddress" lay-verify="required" placeholder="请输入投诉记录类别" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">投诉建议</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fWords" lay-verify="required" placeholder="请输入投诉记录类别" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">业务员</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fClerkName" lay-verify="required" placeholder="请输入投诉记录类别" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">批复意见</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fReply" lay-verify="required" placeholder="请输入投诉记录类别" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">审批人</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fCheck" lay-verify="required" placeholder="请输入投诉记录类别" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">审批日期</label>
+      <div class="layui-input-inline">
+        <input type="text" name="fCheckDate" lay-verify="required" placeholder="请输入投诉记录类别" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item layui-hide">
+      <input type="button" lay-submit lay-filter="LAY-app-workorder-submit" id="LAY-app-workorder-submit" value="确认">
+    </div>
+  </div>
+
+  <script src="../../../static/layui/layui.js"></script>  
+  <script>
+  layui.config({
+    base: '../../../static/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'form'], function(){
+    var $ = layui.$
+    ,form = layui.form;
+    
+  })
+  </script>
+</body>
+</html>
