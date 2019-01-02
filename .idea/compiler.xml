@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="afterSalesService-common" />
+        <module name="afterSalesService-manager-dao" />
+        <module name="afterSalesService-manager-interface" />
+        <module name="afterSalesService-manager-pojo" />
+        <module name="afterSalesService-manager-service" />
+        <module name="afterSalesService-manager-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="afterSalesService-common" target="1.5" />
+      <module name="afterSalesService-manager" target="1.5" />
+      <module name="afterSalesService-manager-dao" target="1.5" />
+      <module name="afterSalesService-manager-interface" target="1.5" />
+      <module name="afterSalesService-manager-pojo" target="1.5" />
+      <module name="afterSalesService-manager-service" target="1.5" />
+      <module name="afterSalesService-manager-web" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
