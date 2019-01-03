@@ -10,6 +10,11 @@
       <module fileurl="file://$PROJECT_DIR$/afterSalesService-manager/afterSalesService-manager-pojo/afterSalesService-manager-pojo.iml" filepath="$PROJECT_DIR$/afterSalesService-manager/afterSalesService-manager-pojo/afterSalesService-manager-pojo.iml" />
       <module fileurl="file://$PROJECT_DIR$/afterSalesService-manager/afterSalesService-manager-service/afterSalesService-manager-service.iml" filepath="$PROJECT_DIR$/afterSalesService-manager/afterSalesService-manager-service/afterSalesService-manager-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/afterSalesService-manager-web/afterSalesService-manager-web.iml" filepath="$PROJECT_DIR$/afterSalesService-manager-web/afterSalesService-manager-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/afterSalesService-parent/afterSalesService-parent.iml" filepath="$PROJECT_DIR$/afterSalesService-parent/afterSalesService-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/afterSalesService-sso/afterSalesService-sso.iml" filepath="$PROJECT_DIR$/afterSalesService-sso/afterSalesService-sso.iml" />
+      <module fileurl="file://$PROJECT_DIR$/afterSalesService-sso/afterSalesService-sso-interface/afterSalesService-sso-interface.iml" filepath="$PROJECT_DIR$/afterSalesService-sso/afterSalesService-sso-interface/afterSalesService-sso-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/afterSalesService-sso/afterSalesService-sso-service/afterSalesService-sso-service.iml" filepath="$PROJECT_DIR$/afterSalesService-sso/afterSalesService-sso-service/afterSalesService-sso-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/afterSalesService-sso-web/afterSalesService-sso-web.iml" filepath="$PROJECT_DIR$/afterSalesService-sso-web/afterSalesService-sso-web.iml" />
     </modules>
   </component>
 </project>

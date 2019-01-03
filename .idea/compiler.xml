@@ -12,16 +12,24 @@
         <module name="afterSalesService-manager-pojo" />
         <module name="afterSalesService-manager-service" />
         <module name="afterSalesService-manager-web" />
+        <module name="afterSalesService-sso-interface" />
+        <module name="afterSalesService-sso-service" />
+        <module name="afterSalesService-sso-web" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="afterSalesService-common" target="1.5" />
-      <module name="afterSalesService-manager" target="1.5" />
-      <module name="afterSalesService-manager-dao" target="1.5" />
-      <module name="afterSalesService-manager-interface" target="1.5" />
-      <module name="afterSalesService-manager-pojo" target="1.5" />
-      <module name="afterSalesService-manager-service" target="1.5" />
-      <module name="afterSalesService-manager-web" target="1.5" />
+      <module name="afterSalesService-common" target="1.7" />
+      <module name="afterSalesService-manager" target="1.7" />
+      <module name="afterSalesService-manager-dao" target="1.7" />
+      <module name="afterSalesService-manager-interface" target="1.7" />
+      <module name="afterSalesService-manager-pojo" target="1.7" />
+      <module name="afterSalesService-manager-service" target="1.7" />
+      <module name="afterSalesService-manager-web" target="1.7" />
+      <module name="afterSalesService-parent" target="1.7" />
+      <module name="afterSalesService-sso" target="1.7" />
+      <module name="afterSalesService-sso-interface" target="1.7" />
+      <module name="afterSalesService-sso-service" target="1.7" />
+      <module name="afterSalesService-sso-web" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
